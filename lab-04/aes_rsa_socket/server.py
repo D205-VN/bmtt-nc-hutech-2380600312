@@ -29,7 +29,7 @@ def decrypt_message(key, encrypted_message):
 def handle_client(client_socket, client_address):
     print(f"Connected with {client_address}")
     
-    client_socket.send(server_key.public_key().export_key(format='PEM'))
+    client_socket.send(server_key.publickey().export_key(format='PEM'))
     
     client_received_key = RSA.import_key(client_socket.recv(2048))
     
@@ -54,7 +54,7 @@ def handle_client(client_socket, client_address):
         if decrypted_message == "exit":
             break
 
-    client.remove((client_socket, aes_key))
+    clients.remove((client_socket, aes_key))
     client_socket.close()
     print(f"Connection with {client_address} closed")
     
